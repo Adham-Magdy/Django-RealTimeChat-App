@@ -12,4 +12,28 @@ class Message(models.Model):
         
     def __str__(self):
         return f'{self.sent_by}'
+
+class Room(models.Model):
+    WAITING = 'Waiting'
+    ACTIVE = 'Active'
+    CLOSED = 'Closed'
     
+    CHOICES_STATUS = (
+        (WAITING,'Waiting'),
+        (ACTIVE,'Active'),
+        (CLOSED,'Closed')
+    )
+    
+    uuid = models.CharField(max_length=255)
+    client = models.CharField(max_length=255)
+    agent = models.ForeignKey(User,related_name="rooms",blank=True,on_delete=models.SET_NULL,null=True)
+    messages = models.ManyToManyField(Message,blank=True)
+    url = models.CharField(max_length=255,blank=True,null=True)
+    status = models.CharField(max_length=20,choices=CHOICES_STATUS,default=WAITING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ('-create_at')
+        
+    def __str__(self):
+        return f"${self.client} - ${self.uuid}"
