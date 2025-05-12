@@ -8,7 +8,8 @@ class Message(models.Model):
     created_by = models.ForeignKey(User,null=True,blank=True,on_delete=models.SET_NULL)
     
     class Meta:
-        ordering=('created_at')
+        ordering=[('created_at')
+        ]
         
     def __str__(self):
         return f'{self.sent_by}'
@@ -33,7 +34,7 @@ class Room(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        ordering = ('-create_at')
+        ordering = [('-created_at')]
         
     def __str__(self):
         return f"${self.client} - ${self.uuid}"
