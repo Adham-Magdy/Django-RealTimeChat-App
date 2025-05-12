@@ -77,7 +77,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'jatte.wsgi.application'
 ASGI_APPLICATION = 'jatte.asgi.application'
-
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
